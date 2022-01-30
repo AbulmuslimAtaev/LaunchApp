@@ -1,3 +1,4 @@
+import os.path
 import sqlite3
 import sys
 from os import startfile
@@ -54,9 +55,10 @@ class Main(QMainWindow, MainFromUi):  # основной класс
                        self.cur.execute(f'''SELECT "Путь" FROM "{self.comboBox.currentText()}"''')]
         for path_ in self.pathes:
             try:
-                startfile(path_)  # запуск приложений
+                print(path_)
+                startfile(os.path.abspath(path_))  # запуск приложений
             except Exception:
-                self.statusbar.showMessage(f"Нет приложения на пути {path_}")
+                self.statusbar.showMessage(f"Нет приложения на пути {os.path.abspath(path_)}")
 
     def open_description(self):  # запуск описания
         startfile(r'Презентация, ТЗ и ПЗ\Пояснительная записка.docx')
